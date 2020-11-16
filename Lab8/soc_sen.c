@@ -14,5 +14,14 @@ int main(){
 
 	bzero(&address,sizeof(address));
 	address.sin_family=AF_INET;
-	address.sin_port=htons();
-	address.sin_addr.s_addr();
+	address.sin_port=htons(5555);
+	address.sin_addr.s_addr=inet_addr("10.0.2.15");
+
+	int addr_len=sizeof(address);
+	char buffer[3]="hi\0";
+	int byte_sent=sendto(sock,buffer,sizeof(buffer),0,(struct sockaddr*)&address,addr_len);
+	if(byte_sent<0) printf("error send\n");
+
+	close(sock);
+	return 0;
+}
